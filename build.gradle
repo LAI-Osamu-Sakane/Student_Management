@@ -25,7 +25,10 @@ repositories {
 }
 
 dependencies {
+	// Spring Boot
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// ThymeLeaf
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '3.3.3'
 	// Apache Commons lang(便利ユーティリティ)
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.16.0'
 	// lombok(short)
