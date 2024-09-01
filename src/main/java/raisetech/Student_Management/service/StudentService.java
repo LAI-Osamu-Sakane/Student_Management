@@ -1,13 +1,16 @@
 package raisetech.Student_Management.service;
 
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import raisetech.Student_Management.data.Student;
 import raisetech.Student_Management.data.StudentsCourses;
+import raisetech.Student_Management.domain.StudentDetail;
 import raisetech.Student_Management.repository.StudentRepository;
 
 @Service
@@ -29,21 +32,15 @@ public class StudentService {
   }
 
 //  課題用
-//  public List<Student> searchStudentList() {
-//    //30代抽出
-//    List<Student> studentList = repository.search().stream()
-//        .filter(student -> student.getAge() >= 30 && student.getAge() < 40)
-//        .collect(Collectors.toList());
-//    return studentList;
-//  }
+  @Transactional
+  public void registerStudent(StudentDetail studentDetail) {
+    repository.registerStudent(studentDetail.getStudent());
 
-//  課題用
-//  public List<StudentsCourses> searchStudentsCourseList() {
-//    //Javaコース抽出
-//    List<StudentsCourses> studentsCoursesList = repository.searchStudentCourses().stream()
-//        .filter(studentsCourses -> studentsCourses.getCourseName().contains("Java"))
-//        .collect(Collectors.toList());
-//
-//    return studentsCoursesList;
-//  }
+    for(StudentsCourses studentsCourses : studentDetail.getStudentsCourses()) {
+      studentsCourses.setStudentId(studentDetail.getStudent().getStudentId());
+      studentsCourses.setCourseStartAt(LocalDateTime.now());
+      studentsCourses.setCourseEndAt(LocalDateTime.now().plusYears(1));
+      repository.registerStudentCourse(studentsCourses);
+    }
+  }
 }
