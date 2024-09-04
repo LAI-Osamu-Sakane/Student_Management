@@ -2,9 +2,7 @@ package raisetech.Student_Management.service;
 
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +26,20 @@ public class StudentService {
   }
 
   public List<StudentsCourses> searchStudentsCourseList() {
-        return repository.searchStudentCourses();
+    return repository.searchStudentCoursesList();
   }
+
+//  課題用
+  public StudentDetail searchStudent(int studentId) {
+    Student student = repository.searchStudent(studentId);
+//    List<StudentsCourses> studentsCourses = repository.searchStudentCourse(Integer.toString(student.getStudentId()));
+    List<StudentsCourses> studentsCourses = repository.searchStudentCourse(student.getStudentId());
+    StudentDetail studentDetail = new StudentDetail();
+    studentDetail.setStudent(student);
+    studentDetail.setStudentsCourses(studentsCourses);
+    return studentDetail;
+  }
+
 
 //  課題用
   @Transactional
@@ -41,6 +51,15 @@ public class StudentService {
       studentsCourses.setCourseStartAt(LocalDateTime.now());
       studentsCourses.setCourseEndAt(LocalDateTime.now().plusYears(1));
       repository.registerStudentCourse(studentsCourses);
+    }
+  }
+
+//  課題用
+  @Transactional
+  public void updateStudent(StudentDetail studentDetail) {
+    repository.updateStudent(studentDetail.getStudent());
+    for(StudentsCourses studentsCourse : studentDetail.getStudentsCourses()) {
+      repository.updateStudentCourses(studentsCourse);
     }
   }
 }
