@@ -19,4 +19,5 @@ public class Student {
   private String remark;
   private boolean isDeleted;
 
+
 }

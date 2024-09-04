@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>受講生情報一覧</title>
+  <title>受講生一覧</title>
 </head>
 <body>
   <h1>受講生一覧</h1>
@@ -23,7 +23,10 @@
     <tbody>
       <tr th:each="studentDetail : ${studentList}">
         <td th:text="${studentDetail.student.studentId}">1</td>
-        <td th:text="${studentDetail.student.name}">山田太郎</td>
+        <td>
+          <a href="/studentList" th:href="@{/student/{studentId}(studentId=${studentDetail.student.studentId})}"
+             th:text="${studentDetail.student.name}">山田太郎</a>
+        </td>
         <td th:text="${studentDetail.student.kanaName}">やまだたろう</td>
         <td th:text="${studentDetail.student.nickname}">タロー</td>
         <td th:text="${studentDetail.student.email}">taro@example.com</td>
@@ -31,6 +34,9 @@
         <td th:text="${studentDetail.student.age}">20</td>
         <td th:text="${studentDetail.student.sex}">男性</td>
         <td th:text="${studentDetail.student.remark}">特になし</td>
+        <td>
+          <input type="checkbox" th:checked="${studentDetail.student.deleted}" />
+        </td>
       </tr>
     </tbody>
   </table>
