@@ -29,7 +29,6 @@ public class StudentService {
     return repository.searchStudentCoursesList();
   }
 
-//  課題用
   public StudentDetail searchStudent(int studentId) {
     Student student = repository.searchStudent(studentId);
 //    List<StudentsCourses> studentsCourses = repository.searchStudentCourse(Integer.toString(student.getStudentId()));
@@ -41,7 +40,6 @@ public class StudentService {
   }
 
 
-//  課題用
   @Transactional
   public void registerStudent(StudentDetail studentDetail) {
     repository.registerStudent(studentDetail.getStudent());
@@ -54,7 +52,6 @@ public class StudentService {
     }
   }
 
-//  課題用
   @Transactional
   public void updateStudent(StudentDetail studentDetail) {
     repository.updateStudent(studentDetail.getStudent());
