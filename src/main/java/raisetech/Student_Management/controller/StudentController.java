@@ -43,7 +43,6 @@ public class StudentController {
     return "studentList";
   }
 
-//  課題用
   @GetMapping("/student/{studentId}")
   public String getStudent(@PathVariable int studentId, Model model) {
     StudentDetail studentDetail = service.searchStudent(studentId);
@@ -56,7 +55,6 @@ public class StudentController {
 //    return service.searchStudentsCourseList();
 //  }
 
-//  課題用に変更
   @GetMapping("/newStudent")
   public String newStudent(Model model) {
     StudentDetail studentDetail = new StudentDetail();
@@ -65,7 +63,6 @@ public class StudentController {
     return "registerStudent";
   }
 
-//  課題用に変更
   @PostMapping("/registerStudent")
   public String registerStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
     if(result.hasErrors()) {
@@ -75,7 +72,6 @@ public class StudentController {
     return "redirect:/studentList";
   }
 
-//  課題用
   @PostMapping("/updateStudent")
   public String updateStudent(@ModelAttribute StudentDetail studentDetail, BindingResult result) {
     if(result.hasErrors()) {
