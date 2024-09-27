@@ -6,8 +6,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import raisetech.Student_Management.domain.StudentDetail;
+import raisetech.Student_Management.exception.TestException;
 import raisetech.Student_Management.service.StudentService;
 
 /**
@@ -38,8 +41,9 @@ public class StudentController {
    * @return 受講生詳細一覧(全件)
    */
   @GetMapping("/studentList")
-  public List<StudentDetail> getStudentList() {
-    return service.searchStudentList();
+  public List<StudentDetail> getStudentList() {//throws TestException {
+    return service.searchStudentList(); //エラーを出すためいったんコメントアウト
+//    throw new TestException("現在は今APIは利用できません。URLは「studentList」ではなく「students」を利用してください。");
   }
 
   /**
@@ -50,7 +54,7 @@ public class StudentController {
    * @return 受講生詳細
    */
   @GetMapping("/student/{studentId}")
-  public StudentDetail getStudent(@PathVariable @NotBlank @Pattern(regexp = "^\\d+$") int studentId) {
+  public StudentDetail getStudent(@PathVariable int studentId) {
     return service.searchStudent(studentId);
   }
 
@@ -77,4 +81,20 @@ public class StudentController {
     service.updateStudent(studentDetail);
     return ResponseEntity.ok("更新処理が成功しました。");
   }
+
+  /**
+   * 例外処理クラスの動作確認を行います。
+   *
+   * @return
+   * @throws TestException
+   */
+  @GetMapping("/studentLists")
+  public List<StudentDetail> getStudentLists() throws TestException {
+    throw new TestException("現在は今APIは利用できません。URLは「studentList」ではなく「students」を利用してください。");
+  }
+//  映像時に作成
+//  @ExceptionHandler(TestException.class)
+//  public ResponseEntity<String> handleTestException(TestException ex) {
+//    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+//  }
 }
