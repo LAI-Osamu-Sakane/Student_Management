@@ -1,6 +1,11 @@
 package raisetech.Student_Management.controller;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -21,11 +26,29 @@ import raisetech.Student_Management.exception.TestException;
 import raisetech.Student_Management.service.StudentService;
 
 /**
- * 受講生の券サックや登録、更新などを行うREST APIとして受け付けるControllerです。
+ * 受講生の検索や登録、更新などを行うREST APIとして受け付けるControllerです。
  */
 @Validated
 @RestController
 public class StudentController {
+
+  /**
+   * 受講生詳細検索です。
+   * IDに紐づく任意の受講生の情報を取得します。
+   *
+   * @param studentId　受講生ID
+   * @return 受講生詳細
+   */
+  @Operation(summary = "受講生詳細検索", description = "受講生詳細を検索します。")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "OK",
+          content = @Content(
+              schema = @Schema(implementation = StudentDetail.class))),
+  })
+  @GetMapping("/student/{studentId}")
+  public StudentDetail getStudent(@PathVariable int studentId) {
+    return service.searchStudent(studentId);
+  }
 
   private StudentService service;
 
@@ -40,22 +63,11 @@ public class StudentController {
    *
    * @return 受講生詳細一覧(全件)
    */
+  @Operation(summary = "一覧検索", description = "受講生の一覧を検索します。")
   @GetMapping("/studentList")
   public List<StudentDetail> getStudentList() {//throws TestException {
     return service.searchStudentList(); //エラーを出すためいったんコメントアウト
 //    throw new TestException("現在は今APIは利用できません。URLは「studentList」ではなく「students」を利用してください。");
-  }
-
-  /**
-   * 受講生詳細検索です。
-   * IDに紐づく任意の受講生の情報を取得します。
-   *
-   * @param studentId　受講生ID
-   * @return 受講生詳細
-   */
-  @GetMapping("/student/{studentId}")
-  public StudentDetail getStudent(@PathVariable int studentId) {
-    return service.searchStudent(studentId);
   }
 
   /**
@@ -64,6 +76,7 @@ public class StudentController {
    * @param studentDetail 受講生詳細
    * @return 実行結果
    */
+  @Operation(summary = "受講生詳細登録", description = "受講生詳細を登録します。")
   @PostMapping("/registerStudent")
   public ResponseEntity<StudentDetail> registerStudent(@RequestBody @Valid StudentDetail studentDetail) {
     StudentDetail responseStudentDetail = service.registerStudent(studentDetail);
@@ -76,6 +89,7 @@ public class StudentController {
    * @param studentDetail 受講生詳細
    * @return 実行結果
    */
+  @Operation(summary = "受講生詳細更新", description = "受講生詳細を更新します。")
   @PutMapping("/updateStudent")
   public ResponseEntity<String> updateStudent(@RequestBody @Valid StudentDetail studentDetail) {
     service.updateStudent(studentDetail);
@@ -88,6 +102,7 @@ public class StudentController {
    * @return
    * @throws TestException
    */
+  @Operation(summary = "例外処理確認用", description = "例外処理確認をします。")
   @GetMapping("/studentLists")
   public List<StudentDetail> getStudentLists() throws TestException {
     throw new TestException("現在は今APIは利用できません。URLは「studentList」ではなく「students」を利用してください。");
