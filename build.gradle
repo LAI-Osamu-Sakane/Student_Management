@@ -31,8 +31,13 @@ dependencies {
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version: '3.3.3'
 	// Validation
 	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.3.3'
+
+	// OpenAPI Generator
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
+
 	// Apache Commons lang(便利ユーティリティ)
 	implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.16.0'
+
 	// lombok(short)
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
