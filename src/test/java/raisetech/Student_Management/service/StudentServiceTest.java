@@ -67,7 +67,7 @@ class StudentServiceTest {
   @Test
   void 受講生詳細検索_リポジトリの処理が適切に呼び出せていること() {
 
-    int studentId = 999;
+    String studentId = "999";
     Student student = new Student();
     student.setStudentId(studentId);
     List<StudentCourse> stucentCourseList = new ArrayList<>();
@@ -113,7 +113,7 @@ class StudentServiceTest {
   @Test
   void 受講生詳細登録_初期化処理が行われること() {
 
-    int studentId = 999;
+    String studentId = "999";
     Student student = new Student();
     student.setStudentId(studentId);
     StudentCourse studentCourse = new StudentCourse();

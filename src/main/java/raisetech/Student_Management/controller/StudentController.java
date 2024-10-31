@@ -46,7 +46,8 @@ public class StudentController {
               schema = @Schema(implementation = StudentDetail.class))),
   })
   @GetMapping("/student/{studentId}")
-  public StudentDetail getStudent(@PathVariable int studentId) {
+//  public StudentDetail getStudent(@PathVariable int studentId) {
+  public StudentDetail getStudent(@PathVariable String studentId) {
     return service.searchStudent(studentId);
   }
 

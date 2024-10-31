@@ -13,16 +13,15 @@ import lombok.Setter;
 @Setter
 public class StudentCourse {
 
-  @NotBlank
   @Pattern(regexp = "^\\d+$")
-  @Schema(title = "コースID", description = "自動採番が設定されています。", type = "int")
-  private int courseId;
+  @Schema(title = "コースID", description = "自動採番が設定されています。", type = "String")
+//  private int courseId;
+  private String courseId;
 
-  @NotBlank
   @Pattern(regexp = "^\\d+$")
-  @Schema(title = "受講生ID", description = "外部キー(studentクラス)", type = "int")
-  private int studentId;
-
+  @Schema(title = "受講生ID", description = "外部キー(studentクラス)", type = "String")
+//  private int studentId;
+  private String studentId;
   @NotBlank
   @Schema(title = "コース名", description = "コース名", type = "String")
   private String courseName;
