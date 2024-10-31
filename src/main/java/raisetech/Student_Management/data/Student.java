@@ -13,10 +13,10 @@ import lombok.Setter;
 @Setter
 public class Student {
 
-  @NotBlank
-  @Pattern(regexp = "^\\d+$")
-  @Schema(title = "受講生ID", description = "自動採番が設定されています。", type = "int")
-  private int studentId;
+  @Pattern(regexp = "^\\d+$", message = "数字のみ入力するようにしてください。")
+  @Schema(title = "受講生ID", description = "自動採番が設定されています。", type = "String")
+//  private int studentId;
+  private String studentId;
 
   @NotBlank
   @Schema(title = "受講生名", description = "フルネーム　苗字と名前の間は半角スペースを入れます。", type = "String")

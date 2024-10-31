@@ -52,7 +52,8 @@ public class StudentService {
    * @param studentId 受講生ID
    * @return 受講生詳細
    */
-  public StudentDetail searchStudent(int studentId) {
+//  public StudentDetail searchStudent(int studentId) {
+  public StudentDetail searchStudent(String studentId) {
     Student student = repository.searchStudent(studentId);
 //    List<StudentsCourses> studentsCourses = repository.searchStudentCourse(Integer.toString(student.getStudentId()));
     List<StudentCourse> studentsCourse = repository.searchStudentCourse(student.getStudentId());
