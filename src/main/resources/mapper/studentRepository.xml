@@ -51,7 +51,7 @@
     WHERE student_id = #{studentId}
   </update>
 
-  <!-- 受講生コース情報を新規登録 IDは自動採番 -->
+  <!-- 受講生コース情報を更新 -->
   <update id="updateStudentCourse" parameterType="raisetech.Student_Management.data.StudentCourse" statementType="PREPARED">
     UPDATE students_courses SET
     course_name = #{courseName}
