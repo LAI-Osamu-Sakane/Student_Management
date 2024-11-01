@@ -45,11 +45,20 @@ dependencies {
 	// MySQLドライバー（short）
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
-	//MyBatis
+	// MyBatis
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 
+	//APサーバー(tomcat)
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+
+	// SpringBoot Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	// MyBatis Test
+	testImplementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter-test', version: '3.0.3'
+	// H2(inmemoryDB)
+	testImplementation group: 'com.h2database', name: 'h2', version: '2.3.232'
+
+
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
